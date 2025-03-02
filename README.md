@@ -55,5 +55,5 @@ This script will execute the training and evaluation using the standard **MAML**
 - Datasets are available in the `./dataset` folder and additional ones can be downloaded from the provided link.
 - For training with **EGMI**, use `bash scripts/egmi.sh`.
 - For training with **MAML**, use `bash scripts/maml.sh`.
-```
+
 
