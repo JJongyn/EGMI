@@ -7,7 +7,7 @@ import numpy
 import numpy as np
 import torch
 from torch.utils.data import Dataset, TensorDataset
-from dataset import Get_HuffPost, Get_Banking, Get_Clinc, Get_Clinc_domain
+from .dataset import Get_HuffPost, Get_Banking, Get_Clinc, Get_Clinc_domain
 
 
 logger = logging.Logger(__name__)
