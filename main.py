@@ -18,7 +18,7 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from transformers import BertTokenizer, get_linear_schedule_with_warmup
 
 from model import BertSequenceModel
-from utils.dataset import MetaSet_Split, Read_HuffPost, Get_HuffPost, Read_Banking, Get_Banking, Get_Clinc, Read_Clinc, Get_Amazon, Read_Amazon, Get_news, Read_news, Get_reuters, Read_reuters
+from utils.dataset import MetaSet_Split, Read_HuffPost, Get_HuffPost, Read_Banking, Get_Banking, Get_Clinc, Read_Clinc 
 from utils.log import Logger
 from utils.metatask import MetaTask
 from torch.nn import functional as F
