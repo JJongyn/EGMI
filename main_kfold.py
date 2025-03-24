@@ -104,7 +104,7 @@ if __name__ == '__main__':
     parser.add_argument("--random_seed_value", type=int, default=2024,
                         help="specify random seed value")
 
-    parser.add_argument("--train_epochs", default=20, type=int,
+    parser.add_argument("--train_epochs", default=10, type=int,
                         help="Max number of training epochs")
 
     parser.add_argument("--num_task_train", default=100, type=int,
