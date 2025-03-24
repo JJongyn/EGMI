@@ -240,7 +240,7 @@ def KFold_MetaSet_Split(all_data, args, k=5, fold_idx=0):
         all_domains = list(set([data['domain'] for data in all_data]))
         
         # K-fold 객체 생성
-        kf = KFold(n_splits=k, shuffle=True, random_state=args.seed)
+        kf = KFold(n_splits=k, shuffle=True, random_state=42)
         
         # 모든 fold 생성
         fold_splits = list(kf.split(all_domains))
@@ -255,7 +255,7 @@ def KFold_MetaSet_Split(all_data, args, k=5, fold_idx=0):
         
         # 검증 도메인 분리 (예: 20%)
         val_size = int(len(train_val_domains) * 0.2)
-        np.random.seed(args.seed)
+        np.random.seed(42)
         np.random.shuffle(train_val_domains)  # 섞기
         train_domains = train_val_domains[val_size:]
         val_domains = train_val_domains[:val_size]
@@ -275,7 +275,7 @@ def KFold_MetaSet_Split(all_data, args, k=5, fold_idx=0):
         all_classes = list(set([data['label'] for data in all_data]))
         
         # K-fold 객체 생성
-        kf = KFold(n_splits=k, shuffle=True, random_state=args.seed)
+        kf = KFold(n_splits=k, shuffle=True, random_state=42)
         
         # 모든 fold 생성
         fold_splits = list(kf.split(all_classes))
@@ -290,7 +290,7 @@ def KFold_MetaSet_Split(all_data, args, k=5, fold_idx=0):
         
         # 검증 클래스 분리 (예: 20%)
         val_size = int(len(train_val_classes) * 0.2)
-        np.random.seed(args.seed)
+        np.random.seed(42)
         np.random.shuffle(train_val_classes)  # 섞기
         train_classes = train_val_classes[val_size:]
         val_classes = train_val_classes[:val_size]
