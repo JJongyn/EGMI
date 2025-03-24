@@ -216,6 +216,99 @@ def Get_HuffPost():
     return train_classes, val_classes, test_classes
 
 
+from sklearn.model_selection import KFold
+import numpy as np
+
+def KFold_MetaSet_Split(all_data, args, k=5, fold_idx=0):
+    """
+    K-fold 교차 검증을 위한 데이터 분할 함수
+    
+    Args:
+        all_data: 전체 데이터셋
+        args: 설정 파라미터
+        k: fold 개수 (기본값: 5)
+        fold_idx: 현재 사용할 fold 인덱스 (0부터 k-1까지)
+    
+    Returns:
+        train_data, val_data, test_data: 분할된 데이터셋
+    """
+    if fold_idx >= k:
+        raise ValueError(f"fold_idx는 0부터 {k-1}까지의 값이어야 합니다.")
+    
+    if args.data_name == 'clinc':
+        # 모든 고유 도메인 가져오기
+        all_domains = list(set([data['domain'] for data in all_data]))
+        
+        # K-fold 객체 생성
+        kf = KFold(n_splits=k, shuffle=True, random_state=args.seed)
+        
+        # 모든 fold 생성
+        fold_splits = list(kf.split(all_domains))
+        
+        # 현재 fold 선택
+        train_val_idx, test_idx = fold_splits[fold_idx]
+        
+        # 도메인 분할
+        domains_array = np.array(all_domains)
+        train_val_domains = domains_array[train_val_idx].tolist()
+        test_domains = domains_array[test_idx].tolist()
+        
+        # 검증 도메인 분리 (예: 20%)
+        val_size = int(len(train_val_domains) * 0.2)
+        np.random.seed(args.seed)
+        np.random.shuffle(train_val_domains)  # 섞기
+        train_domains = train_val_domains[val_size:]
+        val_domains = train_val_domains[:val_size]
+        
+        # 데이터 분할
+        train_data, val_data, test_data = [], [], []
+        for data in all_data:
+            if data['domain'] in train_domains:
+                train_data.append(data)
+            elif data['domain'] in val_domains:
+                val_data.append(data)
+            elif data['domain'] in test_domains:
+                test_data.append(data)
+        
+    else:
+        # 모든 고유 클래스 가져오기
+        all_classes = list(set([data['label'] for data in all_data]))
+        
+        # K-fold 객체 생성
+        kf = KFold(n_splits=k, shuffle=True, random_state=args.seed)
+        
+        # 모든 fold 생성
+        fold_splits = list(kf.split(all_classes))
+        
+        # 현재 fold 선택
+        train_val_idx, test_idx = fold_splits[fold_idx]
+        
+        # 클래스 분할
+        classes_array = np.array(all_classes)
+        train_val_classes = classes_array[train_val_idx].tolist()
+        test_classes = classes_array[test_idx].tolist()
+        
+        # 검증 클래스 분리 (예: 20%)
+        val_size = int(len(train_val_classes) * 0.2)
+        np.random.seed(args.seed)
+        np.random.shuffle(train_val_classes)  # 섞기
+        train_classes = train_val_classes[val_size:]
+        val_classes = train_val_classes[:val_size]
+        
+        # 데이터 분할
+        train_data, val_data, test_data = [], [], []
+        for data in all_data:
+            if data['label'] in train_classes:
+                train_data.append(data)
+            elif data['label'] in val_classes:
+                val_data.append(data)
+            elif data['label'] in test_classes:
+                test_data.append(data)
+    
+    return train_data, val_data, test_data
+
+
+
 def MetaSet_Split(all_data, train_classes, val_classes, test_classes, args):
     train_data, val_data, test_data = [], [], []
 
