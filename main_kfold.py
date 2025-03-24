@@ -513,7 +513,7 @@ if __name__ == '__main__':
                             valuation=False,
                             args=args)
 
-            batch_of_test_tasks = create_batch_of_tasks(test, batch_size=1, is_shuffle=False)
+            batch_of_test_tasks = create_batch_of_tasks(test, batch_size=20, is_shuffle=False)
             test_acc = []
             all_test_loss = []
 
