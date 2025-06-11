@@ -1,7 +1,8 @@
 
 # Entropy-Guided Meta-Initialization Regularization for Few-Shot Text Classification (EGMI)
+ 
+🎉 Our paper "Entropy-Guided Meta-Initialization Regularization for Few-Shot Text Classification (EGMI)" has been accepted for publication in Knowledge-Based Systems (Elsevier, SCI Q1, IF 8.8).
 
-This repository contains code to implement **EGMI**, an entropy-guided meta-initialization regularization method for few-shot text classification. The implementation is based on the work from [AMGS](https://github.com/Tianyi-Lei/Adaptive-Meta-learner-via-Gradient-Similarity-for-Few-shot-Text-Classification).
 
 ## Requirements
 
